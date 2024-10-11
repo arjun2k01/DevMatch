@@ -4,9 +4,6 @@ const userSchema = new mongoose.Schema({
     firstName: {
         type: String,
         required: true,
-        minlength: 2,
-        maxLength: 50,
-
     },
     lastName: {
         type: String,
@@ -17,28 +14,38 @@ const userSchema = new mongoose.Schema({
         unique: true, // Ensure this is correct
         lowercase: true,
         trim: true,
+        validate(value) {
+            if (!validator.isEmail(value)) {
+                throw new Error('Invalid email'+ value);
+            }
+        }
     },
     password: {
         type: String,
         required: true,
+        validate(value) {
+            if (!validator.isStrongPassword(value, { minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1 }))
+                throw new Error('Password should be at least 8 characters long and should contain at least one lowercase letter, one uppercase letter, one number and one symbol');
+        }
     },
     age: {
         type: Number,
         required: true,
         min: 18,
-        max: 100,
     },
     gender: {
         type: String,
-        validate(value) {
-            if (!['Male', 'Female', 'Other'].includes(value)) {
-                throw new Error('Gender must be Male, Female or Other');
-            }
-        }
+        enum: ['Male', 'Female', 'Other'],
     },
     photoUrl: {
         type: String,
-        default: "https://via.placeholder.com/150"
+        default: "https://via.placeholder.com/150",
+        validate(value) {
+            if (!validator.isURL(value)) {
+                throw new Error('Invalid photo|address'+ value);
+            }
+        }
+        
     },
     about: {
         type: String,
@@ -46,15 +53,9 @@ const userSchema = new mongoose.Schema({
     },
     skills: {
         type: [String],
-        required: true,
-    },
-    
-},
-    {
-        timestamps: true 
-        
+        required: true,     
     }
-);
+});
 
 // Create the model
 const UserModel = mongoose.model('User', userSchema);

@@ -17,10 +17,27 @@ app.post('/signup', async (req, res) => {
 })
 // update user
 
-app.patch('/user', async (req, res) => {
-    const userId = req.body.userId;
+app.patch('/user/:userId', async (req, res) => {
+    const userId = req.params?.userId;
     const data = req.body
+
+    
     try {
+
+
+        const allowedUpdates = ['photoUrl', 'about', 'gender', 'skills', 'education', 'experience', 'interests', 'achievements', 'languages',
+
+        ];
+        const isUpdateAllowed = Object.keys(data).every((key) => allowedUpdates.includes(key));
+        if (!isUpdateAllowed) {
+            throw new Error('update not allowed');
+        }
+
+        if (data?.skills.length > 10) {
+            throw new Error('skills should not be more than 10');
+        }
+
+
         const user = await UserModel.findByIdAndUpdate({ _id: userId }, data, {
             returnDocument: 'after',
             runValidators: true,
@@ -31,10 +48,6 @@ app.patch('/user', async (req, res) => {
         res.status(400).send(err.message + ' update failed');
     }
 });
-
-
-
-
 connectDB()
     .then(() => {
         console.log('Database connected');
