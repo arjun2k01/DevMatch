@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const validator = require('validator');
 const userSchema = new mongoose.Schema({
     firstName: {
         type: String,
@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema({
     },
     age: {
         type: Number,
-        required: true,
+        // required: true,
         min: 18,
     },
     gender: {
@@ -53,7 +53,7 @@ const userSchema = new mongoose.Schema({
     },
     skills: {
         type: [String],
-        required: true,     
+        // required: true,     
     }
 });
 
