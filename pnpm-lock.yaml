@@ -17,6 +17,9 @@ importers:
       express:
         specifier: ^4.21.1
         version: 4.21.1
+      express-router:
+        specifier: ^0.0.1
+        version: 0.0.1
       express-validator:
         specifier: ^7.2.0
         version: 7.2.0
@@ -251,6 +254,9 @@ packages:
   etag@1.8.1:
     resolution: {integrity: sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==}
     engines: {node: '>= 0.6'}
+
+  express-router@0.0.1:
+    resolution: {integrity: sha512-6d8DAAUkhihgVQAOqo3lef+B/c9Q42mxKtt6O92fPmHotnv2TQvNClM+bUtTzX8q+V1v5YDyfFdZYTi3lMK/Vg==}
 
   express-validator@7.2.0:
     resolution: {integrity: sha512-I2ByKD8panjtr8Y05l21Wph9xk7kk64UMyvJCl/fFM/3CTJq8isXYPLeKW/aZBCdb/LYNv63PwhY8khw8VWocA==}
@@ -1121,6 +1127,8 @@ snapshots:
   escape-html@1.0.3: {}
 
   etag@1.8.1: {}
+
+  express-router@0.0.1: {}
 
   express-validator@7.2.0:
     dependencies:
