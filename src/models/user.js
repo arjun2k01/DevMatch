@@ -4,12 +4,20 @@ const bcrypt = require('bcrypt'); // Make sure bcrypt is imported
 const jwt = require('jsonwebtoken'); // Make sure jwt is imported
 
 const userSchema = new mongoose.Schema({
+    
+    
+    
     firstName: {
         type: String,
         required: true,
+        index: true,
+        minLength: 2,
+        maxLength: 50,
+
     },
     lastName: {
         type: String,
+        maxLength: 50,
     },
     emailId: {
         type: String,
